@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body{
+    display:flex;
+    flex-direction: column;
+  }
+
+  div{
+    border:1px;
+    height:100px;
+    width: 100vw;
+  }
+
+</style>
+  <title>random colours x tiff tong !</title>
+</head>
+<body>
+
+
+<script>
+  var hue;
+  var saturation;
+  var lightness;
+
+  var min = 2;
+  var max = 9;
+
+  var numDiv = Math.floor(Math.random() * (max - min) + min);
+  console.log(numDiv);
+
+  function createDivs () {
+    for (var i = 0; i < numDiv; i++) {
+      //create divs
+      var div = document.createElement("div");
+      document.body.appendChild(div);
+
+      hslcolor();
+
+      var hsl = 'hsl(' + hue + ',' + saturation +'%,' + lightness + '%)';
+      console.log(hsl);
+
+      div.style.backgroundColor = hsl;
+
+
+    }
+  }
+
+
+  function hslcolor (){
+    //create values for these properties
+    hue = Math.floor(Math.random() * 360);
+    saturation = Math.floor(Math.random() * 100);
+    lightness = Math.floor(Math.random() * 100);
+
+    // console.log(hue, saturation, lightness)
+  }
+
+  // console.log(hue);
+
+  createDivs();
+
+
+
+  // while(2 < div < 9){
+  //   var div = document.createElement("div");
+  //   document.body.appendChild(div);
+  //   div.style.backgroundColor = hslcolor();
+
+  // }
+  
+</script>
+
+</body>
+</html>
