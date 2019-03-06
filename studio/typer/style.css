@@ -1,0 +1,78 @@
+p{
+  font-family: "Helvetica", Arial, san-serif;
+}
+
+#cursor {
+  animation: blinker 1s step-end infinite; 
+  /*you can change 'step-end' to 'linear' for smooth transition*/
+}
+
+@keyframes blinker {  
+  50% { opacity: 0; }
+}
+
+/*@import url('https://fonts.googleapis.com/css?family=Space+Mono');
+body {
+  font-family: 'Space Mono', monospace;
+  font-size: 72px;
+  line-height: 1em;
+}*/
+
+#container {
+  max-width: 60vw;
+  max-height: 85vh;
+  margin: 50px auto;
+  background-color: pink;
+/*  word-wrap: break-word;
+  text-align:center;*/
+}
+.inner {
+  /*display:block;*/
+}
+
+.inner img {
+  top: 50px;
+  left:210px;
+  position: absolute;
+  max-width: 60%;
+  max-height: 60%;
+  object-fit:contain;
+}
+
+/*controls are below this line*/
+.skew{
+  transform: skew(20deg,20deg);
+}
+
+.rotate90{
+  transform: rotate(90deg);
+}
+
+.rotate180{
+  transform: rotate(180deg);
+}
+
+.rotate90cc{
+  transform: rotate(-90deg);
+}
+
+.up{
+  transform: translate(0px, -20px);
+}
+
+.down{
+  transform: translate(0px, 20px);
+}
+
+.right{
+  transform: translate(20px, 0px);
+}
+
+.left{
+  transform: translate(-20px, 0px);
+}
+
+.scaledown{
+  transform: scale(0.8, 0.8);
+}
+
