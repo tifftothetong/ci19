@@ -1,5 +1,11 @@
 p{
   font-family: "Helvetica", Arial, san-serif;
+  text-align: center;
+}
+
+html, body{
+  width:100vw;
+  height:100vh;
 }
 
 #cursor {
@@ -11,32 +17,31 @@ p{
   50% { opacity: 0; }
 }
 
-/*@import url('https://fonts.googleapis.com/css?family=Space+Mono');
-body {
-  font-family: 'Space Mono', monospace;
-  font-size: 72px;
-  line-height: 1em;
-}*/
 
-#container {
-  max-width: 60vw;
-  max-height: 85vh;
-  margin: 50px auto;
-  background-color: pink;
-/*  word-wrap: break-word;
-  text-align:center;*/
+#canvas { 
+  width:55vw;
+  height:80vh;
+  position: relative;
+  margin: 0 auto;
+}
+#canvas img {
+  position: absolute;
+  width:100%;
+  height:100%;
 }
 .inner {
-  /*display:block;*/
+  position: relative;
+  height:500px;
+  width: 500px;
+  margin: 0 auto;
 }
 
 .inner img {
-  top: 50px;
-  left:210px;
   position: absolute;
   max-width: 60%;
   max-height: 60%;
-  object-fit:contain;
+  width: 200px;
+  height: 200px;
 }
 
 /*controls are below this line*/
@@ -57,19 +62,19 @@ body {
 }
 
 .up{
-  transform: translate(0px, -20px);
+  transform: translate(0px, -40px);
 }
 
 .down{
-  transform: translate(0px, 20px);
+  transform: translate(0px, 40px);
 }
 
 .right{
-  transform: translate(20px, 0px);
+  transform: translate(40px, 0px);
 }
 
 .left{
-  transform: translate(-20px, 0px);
+  transform: translate(-40px, 0px);
 }
 
 .scaledown{
