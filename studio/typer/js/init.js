@@ -21,7 +21,6 @@ function transformLastImage(k) {
   if (k == "o" || k == "O") { lastImage.className = "left"; }
   if (k == "p" || k == "P") { lastImage.className = "right"; }
   if (k == "q" || k == "Q") { lastImage.className = "scaledown"; }        
-
   // if (k == " ") { elem.before('<span class="inner">&nbsp;</span>'); 
 
 }
