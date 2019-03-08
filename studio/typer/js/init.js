@@ -15,15 +15,53 @@ function transformLastImage(k) {
   if (k == "i" || k == "I") { lastImage.className = "rotate90cc"; }
   if (k == "j" || k == "J") { lastImage.className = "skew"; }
   if (k == "k" || k == "K") { lastImage.className = "rotate180"; }
-  if (k == "l" || k == "L") { lastImage.className = "rotate90"; }  
-  if (k == "m" || k == "M") { lastImage.className = "up"; }
-  if (k == "n" || k == "N") { lastImage.className = "down"; }
-  if (k == "o" || k == "O") { lastImage.className = "left"; }
-  if (k == "p" || k == "P") { lastImage.className = "right"; }
+  if (k == "l" || k == "L") { lastImage.className = "rotate90"; }
+
+  var character = {
+      x: 100,
+      y: 100,
+      speedMultiplier: 1,
+      element: lastImage
+    };
+
+var moveCharacter = function(dx, dy){
+  character.x += (dx||0);
+  character.y += (dy||0);
+  character.element.style.left = character.x + 'px';
+  character.element.style.top = character.y + 'px';
+ };
+
+  var detectCharacterMovement = function(){
+      if (k == "o" || k == "O") {
+        moveCharacter(-10, 0);
+      }
+      if (k == "p" || k == "P") {
+        moveCharacter(10, 0);
+      }
+      if (k == "m" || k == "M") {
+        moveCharacter(0, -10);
+      }
+      if (k == "n" || k == "N") {
+        moveCharacter(0, 10);
+      }
+    }
+
+    moveCharacter();
+
+    setInterval(function(){
+      detectCharacterMovement();
+    }, 100/24);
+
+  // if (k == "m" || k == "M") { lastImage.className = "up"; }
+  // if (k == "n" || k == "N") { lastImage.className = "down"; }
+  // if (k == "o" || k == "O") { lastImage.className = "left"; }
+  // if (k == "p" || k == "P") { lastImage.className = "right"; }
   if (k == "q" || k == "Q") { lastImage.className = "scaledown"; }        
   // if (k == " ") { elem.before('<span class="inner">&nbsp;</span>'); 
 
 }
+
+
 
 //function for images 
 

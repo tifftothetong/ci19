@@ -61,7 +61,7 @@ html, body{
   transform: rotate(-90deg);
 }
 
-.up{
+/*.up{
   transform: translate(0px, -40px);
 }
 
@@ -75,7 +75,7 @@ html, body{
 
 .left{
   transform: translate(-40px, 0px);
-}
+}*/
 
 .scaledown{
   transform: scale(0.8, 0.8);
