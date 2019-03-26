@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>javascript review</title>
+</head>
+<body>
+
+  <script>
+    // waht are the 7 things that can go in a variable 
+
+    var nothing = undefined ;
+    var bool = true ;
+    var string = "hi";
+    var number = 3.14;
+    var array =[];
+    var object = {}; 
+    var func = function(argument){};
+
+    /////
+    // array
+    var weatherArray = [
+      5, 20, false
+    ];
+
+    console.log (weatherArray);
+    console.log (weatherArray[1]);
+    //we don't know those variables int he array are 
+    //this is the problem that objects solve
+
+    var weather = {
+      temperature : 5, 
+      humidity : 20, 
+      isRaining : false
+    };
+
+    console.log (weather);
+    console.log(weather["humidity"]);
+    console.log(weather.humidity);
+
+    console.log (console);
+    console["log"]("hello");
+
+    //level 1 : "nyc", "chicago", "hong kong"
+    //level 2 : "temp", ...
+    // tevel 3 for temp only: array of numbers 
+
+    var weathers = {
+      nyc:{
+
+        temperature:[
+        4, 6, 5, 7
+        ],
+
+        humidity: 20,
+
+        isRaining: false
+
+      }, 
+
+      hongkong: {
+        temperature:[
+        19, 20, 21, 22
+        ],
+
+        humidity: 86,
+
+        isRaining: false
+      },
+
+    };
+
+    console.log(weathers);
+    console.log(weathers.hongkong.temperature[3]);
+
+
+
+
+  </script>
+
+</body>
+</html>

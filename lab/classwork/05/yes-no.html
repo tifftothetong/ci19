@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+
+    html, body{
+      height:100%;
+    }
+    body{
+      margin:0;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+    h1{
+      /* vmin is either vw or vh, whichever is smaller */
+      font-size:20vmin;
+    }
+
+  </style>
+
+  <title></title>
+</head>
+<body>
+  <h1></h1>
+
+  <script>
+
+    var headers = document.querySelectorAll("h1");
+    console.log(headers);
+
+    //this is the same object as if we said document.createElement("h1");
+    var header = headers[0];
+    console.log(header);
+
+    if(Math.random() < 0.5){
+      header.innerHTML = "yes";
+    } else{
+        header.innerHTML = "no";
+    }
+
+  </script>
+</body>
+</html>

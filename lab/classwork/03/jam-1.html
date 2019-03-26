@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link href="https://fonts.googleapis.com/css?family=Fahkwang" rel="stylesheet">
+</head>
+
+<style>
+  html{
+    font-family: 'Fahkwang', sans-serif;
+  }
+
+  body{
+    display: grid;
+    grid-template-columns: 200px auto;
+    grid-template-rows: 100px auto;
+  }
+  .title{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    display: flex;
+    justify-content: center;
+
+  }
+  .sidebar{
+    background-color: gray;
+
+  }
+  .content{
+    padding:1em;
+  }
+
+  @media not all and (hover){
+    /*mobile layout*/
+    .sidebar, .content{
+      grid-column-start: 1;
+      grid-column-end: 3;
+
+    }
+
+    h1{
+      font-size:400%;
+    }
+
+    body{
+       grid-template-rows: 200px auto auto;
+
+    }
+    .sidebar{
+      display: flex;
+      justify-content: center;
+      font-size: 190%;
+    }
+
+    ul{
+      list-style: none;
+      margin-left: 0px;
+    }
+
+  }
+
+</style>
+
+<body>
+  <div class="title">
+    <h1>tiffany tong</h1>
+  </div>
+  <div class="sidebar">
+    <ul>
+      <li>pictures</li>
+      <li>fun</li>
+      <li>clothes</li>
+      <li>bangers</li>
+      <li>indesign software</li>
+      <li>chinese food</li>
+  </div>
+  <div class="content">
+    <h3>fun</h3>
+    <p> content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content </p>
+  </div>
+
+</body>
+</html>

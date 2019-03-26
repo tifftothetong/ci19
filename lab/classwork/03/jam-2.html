@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<title>media queries</title>
+
+<style>  
+
+
+/*mobile layout*/
+body{
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 100px 75px 120px 50px 100px 20px;
+}
+
+@media (hover) and (min-width: 600px) {
+  /*desktop layout for smaller window*/
+  body{
+    grid-template-columns: 100px auto 100px;
+    grid-template-rows: 100px 500px;   
+  }
+}
+
+@media (hover) and (min-width: 1000px) {
+  /*desktop layout for large window*/
+  body{
+    grid-template-columns: 200px auto 200px;
+    grid-template-rows: 100px 500px;
+  }
+}
+div:nth-child(odd){
+  background-color: pink;
+}
+
+div:nth-child(even){
+  background-color: blue;
+}
+
+</style>
+
+<body>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+</body>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+
+<script>
+
+var typewriter = "";
+
+//document.onkeypress only does characters, on keydown does all keys 
+
+document.onkeydown = function(event){
+  console.log(event);
+  typewriter = typewriter + event.key;
+  document.body.innerHTML = typewriter;
+
+  if(event.key == "z"){
+    document.body.style.backgroundColor = "green";
+  }
+}
+
+
+</script>
+
+</body>
+</html>

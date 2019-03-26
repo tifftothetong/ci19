@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+
+  <title></title>
+
+<body>
+
+  <input type = "file">
+
+</body>
+
+<script>
+
+  //file upload box
+  
+  document.querySelectorAll("input")[0].onchange = function(event){
+    var file = event.target.files[0];
+    var reader = new FileReader();
+    reader.readAsText(file,"UTF-8");
+    reader.onload = function(readerEvent) {
+      didLoad(readerEvent.target.result);
+    }
+
+  }
+
+  //shows up as strings thanks to the code below -> turns file into raw text
+
+  function didLoad(text){
+    console.log(text);
+    var lines = text.split(/\r\n|\n/);
+    console.log(lines);
+  }
+
+</script>

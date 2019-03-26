@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+<script>
+
+  console.log(document);
+
+  document.body.style.backgroundColor = "red";
+
+  //create an html element
+  var header = document.createElement("h1");
+  console.log(header);
+  //put it on page 
+  document.body.appendChild(header);
+
+  //innerHTML is what goes inside the openign and closing tags eg: between h1 tags
+  header.innerHTML = "tiffany";
+
+  var image = document.createElement("img");
+  document.body.appendChild(image);
+  //bad code
+  //image.src = "hello.gif"
+  //good code
+  image.setAttribute("src","hello.gif");
+
+
+
+</script>
+</body>
+</html>
