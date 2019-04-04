@@ -1,5 +1,5 @@
 
-  var url = "https://raw.githubusercontent.com/tifftothetong/ci19/master/studio/ohno/infomercials.json";
+  var url = "https://raw.githubusercontent.com/tifftothetong/ci19/master/studio/ohno/mydata.json";
   
   fetch(url)
     .then(function(response){return response.json();})
@@ -17,7 +17,7 @@ var data;
 
 function buildPage(data) {
   console.log(data);
-  var string = data[2].video;
+  var string = data[1].video;
   console.log(string);
   var split = string.split(" ");
   console.log(split);
