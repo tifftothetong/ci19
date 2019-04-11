@@ -1,5 +1,5 @@
 
-  var url = "https://raw.githubusercontent.com/tifftothetong/ci19/master/studio/ohno/pls.json";
+  var url = "https://raw.githubusercontent.com/tifftothetong/ci19/master/studio/ohno/newest.json";
   
   fetch(url)
     .then(function(response){return response.json();})
@@ -72,17 +72,25 @@ function buildPage(d) {
       divs.push(div);
     }
 
+  // var vid = document.createElement("div");
+  //     document.body.appendChild(vid);
+  //     vid.innerHTML = data[4].video;
+      // event.target.style.zIndex = "1";
 
+    var vid = document.createElement("iframe");
+    document.body.appendChild(vid);
+    vid.setAttribute("src", data[0].video +"?autoplay=1");
+    vid.setAttribute("width", "500");
+
+    // vid.style.zIndex = "1";
+    //autoplay? 
 
 }
 
 ////////// place video 
 
-var vid = document.createElement("iframe");
-    document.body.appendChild(vid);
-    vid.setAttribute("src","data[1].video");
-    event.target.style.zIndex = "1";
-    //autoplay? 
+
+
 
 ////////// counter
 
