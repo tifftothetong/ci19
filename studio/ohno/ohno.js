@@ -1,5 +1,5 @@
 
-  var url = "https://raw.githubusercontent.com/tifftothetong/ci19/master/studio/ohno/better.json";
+  var url = "https://raw.githubusercontent.com/tifftothetong/ci19/master/studio/ohno/pls.json";
   
   fetch(url)
     .then(function(response){return response.json();})
@@ -80,7 +80,7 @@ function buildPage(d) {
 
 var vid = document.createElement("iframe");
     document.body.appendChild(vid);
-    vid.setAttribute("src","data[2].video");
+    vid.setAttribute("src","data[1].video");
     event.target.style.zIndex = "1";
     //autoplay? 
 
