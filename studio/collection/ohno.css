@@ -1,0 +1,28 @@
+div{
+  font-family: "Helvetica", "Arial", sans-serif;
+  font-style: oblique;
+  font-weight: bold;
+  font-size:40px;
+  color: black;
+  -webkit-text-fill-color: yellow; 
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+/*  animation-name: fade;
+  animation-duration: 3s;*/
+/*  z-index:2;*/
+}
+
+
+
+/*@keyframes fade {
+  0%   {opacity:0;}
+  50%  {opacity:0.5;}
+  100% {opacity:1;}
+}*/
+
+iframe{
+  position:absolute;
+  min-width:100vw;
+  min-height:100vh;
+/*  z-index: 1;*/
+}
