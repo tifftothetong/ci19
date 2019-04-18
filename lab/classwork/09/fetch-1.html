@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+<script>
+  
+  //load our json file
+
+  var url = "https://raw.githubusercontent.com/tifftothetong/ci19/master/lab/classwork/09/water.json";
+  
+  fetch(url)
+    .then(function(response){return response.json();})
+    .then(function(json){console.log(json);})
+
+
+</script>
+</body>
+</html>
