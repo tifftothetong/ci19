@@ -1,9 +1,3 @@
-//set up weather api 
-// utilise varibales to change styles in the svgs - variables such as: position, colour of the gradients, skew/ scaling of the svgs
-// provide 2-3 ranges for each variable to prooduce a certain outcome 
-// obtain variables from the svg - cx, cy, rx, ry, rgb, x1,y1,x2,y2 -- and create individual vars from them
-
-
 // new york 40.7353,-73.9945
 // tokyo 35.5040,138.6458
 // hong kong 22.3526,113.9872
@@ -38,240 +32,1660 @@ var coordinates = ['40.7353,-73.9945', '35.5040,138.6458', "22.3526,113.9872","-
 "-33.8705,151.1217", "-37.8246,144.9335","-34.6158,-58.5035", "64.1334,-21.9226", "13.7303,100.5556"];
 //for however many cities you have, run the api, which will run the function build app 
 
+//functions for a day of the week back in time, the time code is specified in var url, at the end. 
+//these function are attached to the html buttons that are triggered at onclick function 
+
+// do i need a function to clear the page and run the next function? is that why the day isnt showing up? 
+
+//monday is set at hourly, the rest are set at daily. 
+function monday(){
+
+  var url;
+
+  for(var i = 0; i < coordinates.length; i++){
+    var cord = coordinates[i];
+    console.log(cord);
+    
+    var url = "https://cors.io/?https://api.darksky.net/forecast/0f6c0dbc1bed7552d2656ce9c3dc755e/" + cord + ",158274000";
+
+    callAPI();
+
+  }
 
 
-var url;
-
-for(var i = 0; i < coordinates.length; i++){
-  var cord = coordinates[i];
-  
-  var url = "https://cors.io/?https://api.darksky.net/forecast/529cc0abb6616dc6a74f67948759f445/" + cord ;
-
-  callAPI();
-
-}
+  function callAPI(){
+    console.log("call api")
+    fetch(url)
+      .then(function(event){ return event.json(); })
+      .then(function(json){ pushData(json);})
+  }
 
 
-function callAPI(){
-  console.log("call api")
-  fetch(url)
-    .then(function(event){ return event.json(); })
-    .then(function(json){ pushData(json);})
-}
+  var randomX;
+  var randomY;
 
 
-var randomX;
-var randomY;
+  function pushData(json){
+      data.push(json);
+      console.log(json);
+      console.log("monday", json);
+        buildApp(json);
+
+  }
+
+  function buildApp(json){
+    // variables from the api
+    var info = json.hourly.data[0];
+
+      // random append
+        for (var i = 0; i < 7; i++){
+
+          var x = window.innerWidth;
+          var y = window.innerHeight;
+          randomX = Math.floor(Math.random()*x);
+          randomY = Math.floor(Math.random()*y);
+
+  // HEIGHT 
+          //generate ratio 
+            var uv = info.uvIndex;
+
+            xMax = 170;
+            xMin = 0;
+
+            yMax = 11;
+            yMin = 0;
+
+            percent = (uv - yMin) / (yMax - yMin);
+            outputUV = percent * (xMax - xMin) + xMin;
+
+        //BORDER RADIUS
+   
+        var appHigh = info.apparentTemperatureHigh;
+        
+        //LINEAR GRADIENT DEGREES
+        var appLow = info.apparentTemperatureLow;
+        
+        //WIDTH
+          var tempMin = info.temperatureMin; 
+              xMax = 280;
+              xMin = 0;
+
+              yMax = 100;
+              yMin = 0;
+
+              percent = (tempMin - yMin) / (yMax - yMin);
+              outputMin = percent * (xMax - xMin) + xMin;
 
 
-function pushData(json){
-    data.push(json);
-    console.log(json);
+      //////////COLOURS
+         //color1 rgb - r
+          var pressure = info.pressure;
+            //generate ratio 
+            xMax = 255;
+            xMin = 0;
 
-      buildApp(json);
+            yMax = 1020;
+            yMin = 1000;
 
-}
+            percent = (pressure - yMin) / (yMax - yMin);
+            outputPressure = percent * (xMax - xMin) + xMin;
 
-function buildApp(json){
-  // variables from the api
-  var info = json.daily.data[1];
 
-    // random append
-      for (var i = 0; i < 7; i++){
-
-        var x = window.innerWidth;
-        var y = window.innerHeight;
-        randomX = Math.floor(Math.random()*x);
-        randomY = Math.floor(Math.random()*y);
-
-// HEIGHT 
+        var high = info.temperatureHigh; //color1 rgb - b
         //generate ratio 
-          var uv = info.uvIndex;
-
-          xMax = 170;
-          xMin = 0;
-
-          yMax = 11;
-          yMin = 0;
-
-          percent = (uv - yMin) / (yMax - yMin);
-          outputUV = percent * (xMax - xMin) + xMin;
-
-      //BORDER RADIUS
- 
-      var appHigh = info.apparentTemperatureHigh;
-      
-      //LINEAR GRADIENT DEGREES
-      var appLow = info.apparentTemperatureLow;
-      
-      //WIDTH
-        var tempMin = info.temperatureMin; 
-            xMax = 280;
+            xMax = 255;
             xMin = 0;
 
             yMax = 100;
             yMin = 0;
 
-            percent = (tempMin - yMin) / (yMax - yMin);
-            outputMin = percent * (xMax - xMin) + xMin;
+            percent = (high - yMin) / (yMax - yMin);
+            outputHigh = percent * (xMax - xMin) + xMin;
 
-
-    //////////COLOURS
-       //color1 rgb - r
-        var pressure = info.pressure;
+        var windGust = info.windGust;
           //generate ratio 
-          xMax = 255;
-          xMin = 0;
-
-          yMax = 1020;
-          yMin = 1000;
-
-          percent = (pressure - yMin) / (yMax - yMin);
-          outputPressure = percent * (xMax - xMin) + xMin;
-
-
-      var high = info.temperatureHigh; //color1 rgb - b
-      //generate ratio 
-          xMax = 255;
-          xMin = 0;
-
-          yMax = 100;
-          yMin = 0;
-
-          percent = (high - yMin) / (yMax - yMin);
-          outputHigh = percent * (xMax - xMin) + xMin;
-
-      var windGust = info.windGust;
-        //generate ratio 
-          xMax = 255;
-          xMin = 0;
-
-          yMax = 25;
-          yMin = 0;
-
-          percent = (windGust - yMin) / (yMax - yMin);
-          outputGust = percent * (xMax - xMin) + xMin;
-
-    //////////col2 rgb
-      var precip = info.precipProbability
-        xMax = 255;
-        xMin = 0;
-
-        yMax = 1;
-        yMin = 0;
-
-        percent = (precip - yMin) / (yMax - yMin);
-        outputPrecip = percent * (xMax - xMin) + xMin;
-
-
-       //color2 - rgb - g
-       var cloud = info.cloudCover;
-      //generate ratio 
-          xMax = 255;
-          xMin = 0;
-
-          yMax = 1;
-          yMin = 0;
-
-          percent = (cloud - yMin) / (yMax - yMin);
-          outputCloud = percent * (xMax - xMin) + xMin;
-
-      var low = info.temperatureLow; //color2 rgb - b
-      //generate ratio 
-          xMax = 255;
-          xMin = 0;
-
-          yMax = 100;
-          yMin = 0;
-
-          percent = (low - yMin) / (yMax - yMin);
-          outputLow = percent * (xMax - xMin) + xMin;
-
-
-    // extra variables 
-          var dew = info.dewPoint; //y2 
-        //generate ratio 
-            xMax = 100;
+            xMax = 255;
             xMin = 0;
 
-            yMax = 80;
+            yMax = 25;
             yMin = 0;
 
-            percent = (dew - yMin) / (yMax - yMin);
-            outputDew = percent * (xMax - xMin) + xMin;
+            percent = (windGust - yMin) / (yMax - yMin);
+            outputGust = percent * (xMax - xMin) + xMin;
 
-
-      var moon = info.moonPhase; //cx
-        //generate ratio 
-          xMax = 150;
+      //////////col2 rgb
+        var precip = info.precipProbability
+          xMax = 255;
           xMin = 0;
 
           yMax = 1;
           yMin = 0;
 
-          percent = (moon - yMin) / (yMax - yMin);
-          outputMoon = percent * (xMax - xMin) + xMin;
-
-      var tempMax = info.temperatureMax;
+          percent = (precip - yMin) / (yMax - yMin);
+          outputPrecip = percent * (xMax - xMin) + xMin;
 
 
+         //color2 - rgb - g
+         var cloud = info.cloudCover;
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
 
-            $('body').append(`
-              <div style = 
-              "width: ${outputMin}px; 
-              height: ${outputUV}px; 
-              left: ${randomX}px; 
-              top: ${randomY}px; 
-              position: absolute;
-              border-radius: ${appHigh}px;
-              background: linear-gradient(${appLow}deg, 
-              rgb(${outputCloud},${outputPrecip},${outputHigh}), 
-              rgb(${outputPressure},${outputCloud},${outputLow}));"> 
+            yMax = 1;
+            yMin = 0;
 
-              </div> 
-              `)
+            percent = (cloud - yMin) / (yMax - yMin);
+            outputCloud = percent * (xMax - xMin) + xMin;
 
-          }
+        var low = info.temperatureLow; //color2 rgb - b
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
 
-            //$('body').append(`
-              // <div style = 
-              // "width: ${outputCloud}px; 
-              // height: ${outputPressure}px; 
-              // left: ${randomX}px; 
-              // top: ${randomY}px; 
-              // position: absolute;
-              // border-radius: ${outputGust}px;
-              // background: linear-gradient(${outputPrecip}deg, 
-              // rgb(${outputMax},${outputAppHigh},${outputHigh}), 
-              // rgb(${outputAppLow},${outputMin},${outputLow}));"> 
+            yMax = 100;
+            yMin = 0;
 
-              // </div> 
-              // `)
- 
+            percent = (low - yMin) / (yMax - yMin);
+            outputLow = percent * (xMax - xMin) + xMin;
+
+
+      // extra variables 
+            var dew = info.dewPoint; //y2 
+          //generate ratio 
+              xMax = 100;
+              xMin = 0;
+
+              yMax = 80;
+              yMin = 0;
+
+              percent = (dew - yMin) / (yMax - yMin);
+              outputDew = percent * (xMax - xMin) + xMin;
+
+
+        var moon = info.moonPhase; //height
+          //generate ratio 
+            xMax = 170;
+            xMin = 0;
+
+            yMax = 1;
+            yMin = 0;
+
+            percent = (moon - yMin) / (yMax - yMin);
+            outputMoon = percent * (xMax - xMin) + xMin;
+
+        var tempMax = info.temperatureMax;
+
+
+              $('body').append(`
+                <div style = 
+                  "width: ${outputMin}px; 
+                  height: ${outputMoon}px; 
+                  left: ${randomX}px; 
+                  top: ${randomY}px; 
+                  position: absolute;
+                  border-radius: ${tempMax}px;
+                  background: 
+                    linear-gradient(${tempMax}deg, 
+                    rgb(${outputCloud},${outputPrecip},${outputHigh}), 
+                    rgb(${outputPressure},${outputCloud},${outputLow}));
+                > 
+
+                </div> 
+                `)
+
+            }
+
+    var background = "rgb(0, 73, 232)";
+    document.body.style.backgroundColor = background;
+
+   
+  }
+
+  function getRandomPosition(element) {
+
+    console.log(randomX + ", " + randomY);
+  }
+
+
 }
 
+function tuesday(){
 
-function getRandomPosition(element) {
+  var url;
 
-  console.log(randomX + ", " + randomY);
+  for(var i = 0; i < coordinates.length; i++){
+    var cord = coordinates[i];
+    console.log(cord);
+    
+    var url = "https://cors.io/?https://api.darksky.net/forecast/0f6c0dbc1bed7552d2656ce9c3dc755e/" + cord + ",984441600";
+
+    callAPI();
+
+  }
+
+
+  function callAPI(){
+    console.log("call api")
+    fetch(url)
+      .then(function(event){ return event.json(); })
+      .then(function(json){ pushData(json);})
+  }
+
+
+  var randomX;
+  var randomY;
+
+
+  function pushData(json){
+      data.push(json);
+      console.log(json);
+
+        buildApp(json);
+
+  }
+
+  function buildApp(json){
+    // variables from the api
+    var info = json.daily.data[1];
+
+      // random append
+        for (var i = 0; i < 7; i++){
+
+          var x = window.innerWidth;
+          var y = window.innerHeight;
+          randomX = Math.floor(Math.random()*x);
+          randomY = Math.floor(Math.random()*y);
+
+  // HEIGHT 
+          // generate ratio 
+            var uv = info.uvIndex;
+
+            xMax = 170;
+            xMin = 0;
+
+            yMax = 11;
+            yMin = 0;
+
+            percent = (uv - yMin) / (yMax - yMin);
+            outputUV = percent * (xMax - xMin) + xMin;
+
+        // BORDER RADIUS
+   
+        var appHigh = info.apparentTemperatureHigh;
+        
+        // LINEAR GRADIENT DEGREES
+        var appLow = info.apparentTemperatureLow;
+        
+        //WIDTH
+          var tempMin = info.temperatureMin; 
+              xMax = 280;
+              xMin = 0;
+
+              yMax = 100;
+              yMin = 0;
+
+              percent = (tempMin - yMin) / (yMax - yMin);
+              outputMin = percent * (xMax - xMin) + xMin;
+
+
+      //////////COLOURS
+         //color1 rgb - r
+          var pressure = info.pressure;
+            //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 1020;
+            yMin = 1000;
+
+            percent = (pressure - yMin) / (yMax - yMin);
+            outputPressure = percent * (xMax - xMin) + xMin;
+
+
+        var high = info.temperatureHigh; //color1 rgb - b
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 100;
+            yMin = 0;
+
+            percent = (high - yMin) / (yMax - yMin);
+            outputHigh = percent * (xMax - xMin) + xMin;
+
+        var windGust = info.windGust;
+          //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 25;
+            yMin = 0;
+
+            percent = (windGust - yMin) / (yMax - yMin);
+            outputGust = percent * (xMax - xMin) + xMin;
+
+      //////////col2 rgb
+        var precip = info.precipProbability
+          xMax = 255;
+          xMin = 0;
+
+          yMax = 1;
+          yMin = 0;
+
+          percent = (precip - yMin) / (yMax - yMin);
+          outputPrecip = percent * (xMax - xMin) + xMin;
+
+
+         //color2 - rgb - g
+         var cloud = info.cloudCover;
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 1;
+            yMin = 0;
+
+            percent = (cloud - yMin) / (yMax - yMin);
+            outputCloud = percent * (xMax - xMin) + xMin;
+
+        var low = info.temperatureLow; //color2 rgb - b
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 100;
+            yMin = 0;
+
+            percent = (low - yMin) / (yMax - yMin);
+            outputLow = percent * (xMax - xMin) + xMin;
+
+
+      // extra variables 
+            var dew = info.dewPoint; //y2 
+          //generate ratio 
+              xMax = 100;
+              xMin = 0;
+
+              yMax = 80;
+              yMin = 0;
+
+              percent = (dew - yMin) / (yMax - yMin);
+              outputDew = percent * (xMax - xMin) + xMin;
+
+
+        var moon = info.moonPhase; //height
+          //generate ratio 
+            xMax = 170;
+            xMin = 0;
+
+            yMax = 1;
+            yMin = 0;
+
+            percent = (moon - yMin) / (yMax - yMin);
+            outputMoon = percent * (xMax - xMin) + xMin;
+
+        var tempMax = info.temperatureMax;
+
+
+              $('body').append(`
+                <div style = 
+                "width: ${outputMin}px; 
+                height: ${outputMoon}px; 
+                left: ${randomX}px; 
+                top: ${randomY}px; 
+                position: absolute;
+                border-radius: ${tempMax}px;
+                background: linear-gradient(${tempMax}deg, 
+                rgb(${outputCloud},${outputPrecip},${outputHigh}), 
+                rgb(${outputPressure},${outputCloud},${outputLow}));"> 
+
+                </div> 
+                `)
+
+            }
+
+   
+  }
+
+  function getRandomPosition(element) {
+
+    console.log(randomX + ", " + randomY);
+  }
+
+
 }
 
-function red(){
-  document.body.style.backgroundColor = "red";
+function wednesday(){
+
+  var url;
+
+  for(var i = 0; i < coordinates.length; i++){
+    var cord = coordinates[i];
+    console.log(cord);
+    
+    var url = "https://cors.io/?https://api.darksky.net/forecast/0f6c0dbc1bed7552d2656ce9c3dc755e/" + cord + ",719708459";
+
+    callAPI();
+
+  }
+
+
+  function callAPI(){
+    console.log("call api")
+    fetch(url)
+      .then(function(event){ return event.json(); })
+      .then(function(json){ pushData(json);})
+  }
+
+
+  var randomX;
+  var randomY;
+
+
+  function pushData(json){
+      data.push(json);
+      console.log(json);
+
+        buildApp(json);
+
+  }
+
+  function buildApp(json){
+    // variables from the api
+    var info = json.daily.data[1];
+
+      // random append
+        for (var i = 0; i < 7; i++){
+
+          var x = window.innerWidth;
+          var y = window.innerHeight;
+          randomX = Math.floor(Math.random()*x);
+          randomY = Math.floor(Math.random()*y);
+
+  // HEIGHT 
+          // generate ratio 
+            var uv = info.uvIndex;
+
+            xMax = 170;
+            xMin = 0;
+
+            yMax = 11;
+            yMin = 0;
+
+            percent = (uv - yMin) / (yMax - yMin);
+            outputUV = percent * (xMax - xMin) + xMin;
+
+        // BORDER RADIUS
+   
+        var appHigh = info.apparentTemperatureHigh;
+        
+        // LINEAR GRADIENT DEGREES
+        var appLow = info.apparentTemperatureLow;
+        
+        //WIDTH
+          var tempMin = info.temperatureMin; 
+              xMax = 280;
+              xMin = 0;
+
+              yMax = 100;
+              yMin = 0;
+
+              percent = (tempMin - yMin) / (yMax - yMin);
+              outputMin = percent * (xMax - xMin) + xMin;
+
+
+      //////////COLOURS
+         //color1 rgb - r
+          var pressure = info.pressure;
+            //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 1020;
+            yMin = 1000;
+
+            percent = (pressure - yMin) / (yMax - yMin);
+            outputPressure = percent * (xMax - xMin) + xMin;
+
+
+        var high = info.temperatureHigh; //color1 rgb - b
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 100;
+            yMin = 0;
+
+            percent = (high - yMin) / (yMax - yMin);
+            outputHigh = percent * (xMax - xMin) + xMin;
+
+        var windGust = info.windGust;
+          //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 25;
+            yMin = 0;
+
+            percent = (windGust - yMin) / (yMax - yMin);
+            outputGust = percent * (xMax - xMin) + xMin;
+
+      //////////col2 rgb
+        var precip = info.precipProbability
+          xMax = 255;
+          xMin = 0;
+
+          yMax = 1;
+          yMin = 0;
+
+          percent = (precip - yMin) / (yMax - yMin);
+          outputPrecip = percent * (xMax - xMin) + xMin;
+
+
+         //color2 - rgb - g
+         var cloud = info.cloudCover;
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 1;
+            yMin = 0;
+
+            percent = (cloud - yMin) / (yMax - yMin);
+            outputCloud = percent * (xMax - xMin) + xMin;
+
+        var low = info.temperatureLow; //color2 rgb - b
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 100;
+            yMin = 0;
+
+            percent = (low - yMin) / (yMax - yMin);
+            outputLow = percent * (xMax - xMin) + xMin;
+
+
+      // extra variables 
+            var dew = info.dewPoint; //y2 
+          //generate ratio 
+              xMax = 100;
+              xMin = 0;
+
+              yMax = 80;
+              yMin = 0;
+
+              percent = (dew - yMin) / (yMax - yMin);
+              outputDew = percent * (xMax - xMin) + xMin;
+
+
+        var moon = info.moonPhase; //height
+          //generate ratio 
+            xMax = 170;
+            xMin = 0;
+
+            yMax = 1;
+            yMin = 0;
+
+            percent = (moon - yMin) / (yMax - yMin);
+            outputMoon = percent * (xMax - xMin) + xMin;
+
+        var tempMax = info.temperatureMax;
+
+
+              $('body').append(`
+                <div style = 
+                "width: ${outputMin}px; 
+                height: ${outputMoon}px; 
+                left: ${randomX}px; 
+                top: ${randomY}px; 
+                position: absolute;
+                border-radius: ${tempMax}px;
+                background: linear-gradient(${tempMax}deg, 
+                rgb(${outputCloud},${outputPrecip},${outputHigh}), 
+                rgb(${outputPressure},${outputCloud},${outputLow}));"> 
+
+                </div> 
+                `)
+
+            }
+
+   
+  }
+
+  function getRandomPosition(element) {
+
+    console.log(randomX + ", " + randomY);
+  }
+
+
 }
-function orange(){
-  document.body.style.backgroundColor = "orange";
+
+function thursday(){
+
+  var url;
+
+  for(var i = 0; i < coordinates.length; i++){
+    var cord = coordinates[i];
+    console.log(cord);
+    
+    var url = "https://cors.io/?https://api.darksky.net/forecast/0f6c0dbc1bed7552d2656ce9c3dc755e/" + cord + ",598147200";
+
+    callAPI();
+
+  }
+
+
+  function callAPI(){
+    console.log("call api")
+    fetch(url)
+      .then(function(event){ return event.json(); })
+      .then(function(json){ pushData(json);})
+  }
+
+
+  var randomX;
+  var randomY;
+
+
+  function pushData(json){
+      data.push(json);
+      console.log(json);
+
+        buildApp(json);
+
+  }
+
+  function buildApp(json){
+    // variables from the api
+    var info = json.daily.data[1];
+
+      // random append
+        for (var i = 0; i < 7; i++){
+
+          var x = window.innerWidth;
+          var y = window.innerHeight;
+          randomX = Math.floor(Math.random()*x);
+          randomY = Math.floor(Math.random()*y);
+
+  // HEIGHT 
+          // generate ratio 
+            var uv = info.uvIndex;
+
+            xMax = 170;
+            xMin = 0;
+
+            yMax = 11;
+            yMin = 0;
+
+            percent = (uv - yMin) / (yMax - yMin);
+            outputUV = percent * (xMax - xMin) + xMin;
+
+        // BORDER RADIUS
+   
+        var appHigh = info.apparentTemperatureHigh;
+        
+        // LINEAR GRADIENT DEGREES
+        var appLow = info.apparentTemperatureLow;
+        
+        //WIDTH
+          var tempMin = info.temperatureMin; 
+              xMax = 280;
+              xMin = 0;
+
+              yMax = 100;
+              yMin = 0;
+
+              percent = (tempMin - yMin) / (yMax - yMin);
+              outputMin = percent * (xMax - xMin) + xMin;
+
+
+      //////////COLOURS
+         //color1 rgb - r
+          var pressure = info.pressure;
+            //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 1020;
+            yMin = 1000;
+
+            percent = (pressure - yMin) / (yMax - yMin);
+            outputPressure = percent * (xMax - xMin) + xMin;
+
+
+        var high = info.temperatureHigh; //color1 rgb - b
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 100;
+            yMin = 0;
+
+            percent = (high - yMin) / (yMax - yMin);
+            outputHigh = percent * (xMax - xMin) + xMin;
+
+        var windGust = info.windGust;
+          //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 25;
+            yMin = 0;
+
+            percent = (windGust - yMin) / (yMax - yMin);
+            outputGust = percent * (xMax - xMin) + xMin;
+
+      //////////col2 rgb
+        var precip = info.precipProbability
+          xMax = 255;
+          xMin = 0;
+
+          yMax = 1;
+          yMin = 0;
+
+          percent = (precip - yMin) / (yMax - yMin);
+          outputPrecip = percent * (xMax - xMin) + xMin;
+
+
+         //color2 - rgb - g
+         var cloud = info.cloudCover;
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 1;
+            yMin = 0;
+
+            percent = (cloud - yMin) / (yMax - yMin);
+            outputCloud = percent * (xMax - xMin) + xMin;
+
+        var low = info.temperatureLow; //color2 rgb - b
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 100;
+            yMin = 0;
+
+            percent = (low - yMin) / (yMax - yMin);
+            outputLow = percent * (xMax - xMin) + xMin;
+
+
+      // extra variables 
+            var dew = info.dewPoint; //y2 
+          //generate ratio 
+              xMax = 100;
+              xMin = 0;
+
+              yMax = 80;
+              yMin = 0;
+
+              percent = (dew - yMin) / (yMax - yMin);
+              outputDew = percent * (xMax - xMin) + xMin;
+
+
+        var moon = info.moonPhase; //height
+          //generate ratio 
+            xMax = 170;
+            xMin = 0;
+
+            yMax = 1;
+            yMin = 0;
+
+            percent = (moon - yMin) / (yMax - yMin);
+            outputMoon = percent * (xMax - xMin) + xMin;
+
+        var tempMax = info.temperatureMax;
+
+
+              $('body').append(`
+                <div style = 
+                "width: ${outputMin}px; 
+                height: ${outputMoon}px; 
+                left: ${randomX}px; 
+                top: ${randomY}px; 
+                position: absolute;
+                border-radius: ${tempMax}px;
+                background: linear-gradient(${tempMax}deg, 
+                rgb(${outputCloud},${outputPrecip},${outputHigh}), 
+                rgb(${outputPressure},${outputCloud},${outputLow}));"> 
+
+                </div> 
+                `)
+
+            }
+
+   
+  }
+
+  function getRandomPosition(element) {
+
+    console.log(randomX + ", " + randomY);
+  }
+
+
 }
-function yellow(){
-  document.body.style.backgroundColor = "yellow";
+
+function friday(){
+
+  var url;
+
+  for(var i = 0; i < coordinates.length; i++){
+    var cord = coordinates[i];
+    console.log(cord);
+    
+    var url = "https://cors.io/?https://api.darksky.net/forecast/0f6c0dbc1bed7552d2656ce9c3dc755e/" + cord + ",924307020";
+
+    callAPI();
+
+  }
+
+
+  function callAPI(){
+    console.log("call api")
+    fetch(url)
+      .then(function(event){ return event.json(); })
+      .then(function(json){ pushData(json);})
+  }
+
+
+  var randomX;
+  var randomY;
+
+
+  function pushData(json){
+      data.push(json);
+      console.log(json);
+
+        buildApp(json);
+
+  }
+
+  function buildApp(json){
+    // variables from the api
+    var info = json.daily.data[1];
+
+      // random append
+        for (var i = 0; i < 7; i++){
+
+          var x = window.innerWidth;
+          var y = window.innerHeight;
+          randomX = Math.floor(Math.random()*x);
+          randomY = Math.floor(Math.random()*y);
+
+  // HEIGHT 
+          // generate ratio 
+            var uv = info.uvIndex;
+
+            xMax = 170;
+            xMin = 0;
+
+            yMax = 11;
+            yMin = 0;
+
+            percent = (uv - yMin) / (yMax - yMin);
+            outputUV = percent * (xMax - xMin) + xMin;
+
+        // BORDER RADIUS
+   
+        var appHigh = info.apparentTemperatureHigh;
+        
+        // LINEAR GRADIENT DEGREES
+        var appLow = info.apparentTemperatureLow;
+        
+        //WIDTH
+          var tempMin = info.temperatureMin; 
+              xMax = 280;
+              xMin = 0;
+
+              yMax = 100;
+              yMin = 0;
+
+              percent = (tempMin - yMin) / (yMax - yMin);
+              outputMin = percent * (xMax - xMin) + xMin;
+
+
+      //////////COLOURS
+         //color1 rgb - r
+          var pressure = info.pressure;
+            //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 1020;
+            yMin = 1000;
+
+            percent = (pressure - yMin) / (yMax - yMin);
+            outputPressure = percent * (xMax - xMin) + xMin;
+
+
+        var high = info.temperatureHigh; //color1 rgb - b
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 100;
+            yMin = 0;
+
+            percent = (high - yMin) / (yMax - yMin);
+            outputHigh = percent * (xMax - xMin) + xMin;
+
+        var windGust = info.windGust;
+          //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 25;
+            yMin = 0;
+
+            percent = (windGust - yMin) / (yMax - yMin);
+            outputGust = percent * (xMax - xMin) + xMin;
+
+      //////////col2 rgb
+        var precip = info.precipProbability
+          xMax = 255;
+          xMin = 0;
+
+          yMax = 1;
+          yMin = 0;
+
+          percent = (precip - yMin) / (yMax - yMin);
+          outputPrecip = percent * (xMax - xMin) + xMin;
+
+
+         //color2 - rgb - g
+         var cloud = info.cloudCover;
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 1;
+            yMin = 0;
+
+            percent = (cloud - yMin) / (yMax - yMin);
+            outputCloud = percent * (xMax - xMin) + xMin;
+
+        var low = info.temperatureLow; //color2 rgb - b
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 100;
+            yMin = 0;
+
+            percent = (low - yMin) / (yMax - yMin);
+            outputLow = percent * (xMax - xMin) + xMin;
+
+
+      // extra variables 
+            var dew = info.dewPoint; //y2 
+          //generate ratio 
+              xMax = 100;
+              xMin = 0;
+
+              yMax = 80;
+              yMin = 0;
+
+              percent = (dew - yMin) / (yMax - yMin);
+              outputDew = percent * (xMax - xMin) + xMin;
+
+
+        var moon = info.moonPhase; //height
+          //generate ratio 
+            xMax = 170;
+            xMin = 0;
+
+            yMax = 1;
+            yMin = 0;
+
+            percent = (moon - yMin) / (yMax - yMin);
+            outputMoon = percent * (xMax - xMin) + xMin;
+
+        var tempMax = info.temperatureMax;
+
+
+              $('body').append(`
+                <div style = 
+                "width: ${outputMin}px; 
+                height: ${outputMoon}px; 
+                left: ${randomX}px; 
+                top: ${randomY}px; 
+                position: absolute;
+                border-radius: ${tempMax}px;
+                background: linear-gradient(${tempMax}deg, 
+                rgb(${outputCloud},${outputPrecip},${outputHigh}), 
+                rgb(${outputPressure},${outputCloud},${outputLow}));"> 
+
+                </div> 
+                `)
+
+            }
+
+   
+  }
+
+  function getRandomPosition(element) {
+
+    console.log(randomX + ", " + randomY);
+  }
+
+
 }
-function green(){
-  document.body.style.backgroundColor = "lime";
+
+function saturday(){
+
+  var url;
+
+  for(var i = 0; i < coordinates.length; i++){
+    var cord = coordinates[i];
+    console.log(cord);
+    
+    var url = "https://cors.io/?https://api.darksky.net/forecast/0f6c0dbc1bed7552d2656ce9c3dc755e/" + cord + ",1365228000";
+
+    callAPI();
+
+  }
+
+
+  function callAPI(){
+    console.log("call api")
+    fetch(url)
+      .then(function(event){ return event.json(); })
+      .then(function(json){ pushData(json);})
+  }
+
+
+  var randomX;
+  var randomY;
+
+
+  function pushData(json){
+      data.push(json);
+      console.log(json);
+
+        buildApp(json);
+
+  }
+
+  function buildApp(json){
+    // variables from the api
+    var info = json.daily.data[1];
+
+      // random append
+        for (var i = 0; i < 7; i++){
+
+          var x = window.innerWidth;
+          var y = window.innerHeight;
+          randomX = Math.floor(Math.random()*x);
+          randomY = Math.floor(Math.random()*y);
+
+  // HEIGHT 
+          // generate ratio 
+            var uv = info.uvIndex;
+
+            xMax = 170;
+            xMin = 0;
+
+            yMax = 11;
+            yMin = 0;
+
+            percent = (uv - yMin) / (yMax - yMin);
+            outputUV = percent * (xMax - xMin) + xMin;
+
+        // BORDER RADIUS
+   
+        var appHigh = info.apparentTemperatureHigh;
+        
+        // LINEAR GRADIENT DEGREES
+        var appLow = info.apparentTemperatureLow;
+        
+        //WIDTH
+          var tempMin = info.temperatureMin; 
+              xMax = 280;
+              xMin = 0;
+
+              yMax = 100;
+              yMin = 0;
+
+              percent = (tempMin - yMin) / (yMax - yMin);
+              outputMin = percent * (xMax - xMin) + xMin;
+
+
+      //////////COLOURS
+         //color1 rgb - r
+          var pressure = info.pressure;
+            //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 1020;
+            yMin = 1000;
+
+            percent = (pressure - yMin) / (yMax - yMin);
+            outputPressure = percent * (xMax - xMin) + xMin;
+
+
+        var high = info.temperatureHigh; //color1 rgb - b
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 100;
+            yMin = 0;
+
+            percent = (high - yMin) / (yMax - yMin);
+            outputHigh = percent * (xMax - xMin) + xMin;
+
+        var windGust = info.windGust;
+          //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 25;
+            yMin = 0;
+
+            percent = (windGust - yMin) / (yMax - yMin);
+            outputGust = percent * (xMax - xMin) + xMin;
+
+      //////////col2 rgb
+        var precip = info.precipProbability
+          xMax = 255;
+          xMin = 0;
+
+          yMax = 1;
+          yMin = 0;
+
+          percent = (precip - yMin) / (yMax - yMin);
+          outputPrecip = percent * (xMax - xMin) + xMin;
+
+
+         //color2 - rgb - g
+         var cloud = info.cloudCover;
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 1;
+            yMin = 0;
+
+            percent = (cloud - yMin) / (yMax - yMin);
+            outputCloud = percent * (xMax - xMin) + xMin;
+
+        var low = info.temperatureLow; //color2 rgb - b
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 100;
+            yMin = 0;
+
+            percent = (low - yMin) / (yMax - yMin);
+            outputLow = percent * (xMax - xMin) + xMin;
+
+
+      // extra variables 
+            var dew = info.dewPoint; //y2 
+          //generate ratio 
+              xMax = 100;
+              xMin = 0;
+
+              yMax = 80;
+              yMin = 0;
+
+              percent = (dew - yMin) / (yMax - yMin);
+              outputDew = percent * (xMax - xMin) + xMin;
+
+
+        var moon = info.moonPhase; //height
+          //generate ratio 
+            xMax = 170;
+            xMin = 0;
+
+            yMax = 1;
+            yMin = 0;
+
+            percent = (moon - yMin) / (yMax - yMin);
+            outputMoon = percent * (xMax - xMin) + xMin;
+
+        var tempMax = info.temperatureMax;
+
+
+              $('body').append(`
+                <div style = 
+                "width: ${outputMin}px; 
+                height: ${outputMoon}px; 
+                left: ${randomX}px; 
+                top: ${randomY}px; 
+                position: absolute;
+                border-radius: ${tempMax}px;
+                background: linear-gradient(${tempMax}deg, 
+                rgb(${outputCloud},${outputPrecip},${outputHigh}), 
+                rgb(${outputPressure},${outputCloud},${outputLow}));"> 
+
+                </div> 
+                `)
+
+            }
+
+   
+  }
+
+  function getRandomPosition(element) {
+
+    console.log(randomX + ", " + randomY);
+  }
+
+
 }
-function blue(){
-  document.body.style.backgroundColor = "blue";
+
+function sunday(){
+
+  var url;
+
+  for(var i = 0; i < coordinates.length; i++){
+    var cord = coordinates[i];
+    
+    var url = "https://cors.io/?https://api.darksky.net/forecast/529cc0abb6616dc6a74f67948759f445/" + cord + ",1496556000";
+
+    callAPI();
+
+  }
+
+
+  function callAPI(){
+    console.log("call api")
+    fetch(url)
+      .then(function(event){ return event.json(); })
+      .then(function(json){ pushData(json);})
+  }
+
+
+  var randomX;
+  var randomY;
+
+
+  function pushData(json){
+      data.push(json);
+      console.log(json);
+
+        buildApp(json);
+
+  }
+
+  function buildApp(json){
+    // variables from the api
+    var info = json.daily.data[1];
+
+      // random append
+        for (var i = 0; i < 7; i++){
+
+          var x = window.innerWidth;
+          var y = window.innerHeight;
+          randomX = Math.floor(Math.random()*x);
+          randomY = Math.floor(Math.random()*y);
+
+  // HEIGHT 
+          //generate ratio 
+            var uv = info.uvIndex;
+
+            xMax = 170;
+            xMin = 0;
+
+            yMax = 11;
+            yMin = 0;
+
+            percent = (uv - yMin) / (yMax - yMin);
+            outputUV = percent * (xMax - xMin) + xMin;
+
+        //BORDER RADIUS
+   
+        var appHigh = info.apparentTemperatureHigh;
+        
+        //LINEAR GRADIENT DEGREES
+        var appLow = info.apparentTemperatureLow;
+        
+        //WIDTH
+          var tempMin = info.temperatureMin; 
+              xMax = 280;
+              xMin = 0;
+
+              yMax = 100;
+              yMin = 0;
+
+              percent = (tempMin - yMin) / (yMax - yMin);
+              outputMin = percent * (xMax - xMin) + xMin;
+
+
+      //////////COLOURS
+         //color1 rgb - r
+          var pressure = info.pressure;
+            //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 1020;
+            yMin = 1000;
+
+            percent = (pressure - yMin) / (yMax - yMin);
+            outputPressure = percent * (xMax - xMin) + xMin;
+
+
+        var high = info.temperatureHigh; //color1 rgb - b
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 100;
+            yMin = 0;
+
+            percent = (high - yMin) / (yMax - yMin);
+            outputHigh = percent * (xMax - xMin) + xMin;
+
+        var windGust = info.windGust;
+          //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 25;
+            yMin = 0;
+
+            percent = (windGust - yMin) / (yMax - yMin);
+            outputGust = percent * (xMax - xMin) + xMin;
+
+      //////////col2 rgb
+        var precip = info.precipProbability
+          xMax = 255;
+          xMin = 0;
+
+          yMax = 1;
+          yMin = 0;
+
+          percent = (precip - yMin) / (yMax - yMin);
+          outputPrecip = percent * (xMax - xMin) + xMin;
+
+
+         //color2 - rgb - g
+         var cloud = info.cloudCover;
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 1;
+            yMin = 0;
+
+            percent = (cloud - yMin) / (yMax - yMin);
+            outputCloud = percent * (xMax - xMin) + xMin;
+
+        var low = info.temperatureLow; //color2 rgb - b
+        //generate ratio 
+            xMax = 255;
+            xMin = 0;
+
+            yMax = 100;
+            yMin = 0;
+
+            percent = (low - yMin) / (yMax - yMin);
+            outputLow = percent * (xMax - xMin) + xMin;
+
+
+      // extra variables 
+            var dew = info.dewPoint; //y2 
+          //generate ratio 
+              xMax = 100;
+              xMin = 0;
+
+              yMax = 80;
+              yMin = 0;
+
+              percent = (dew - yMin) / (yMax - yMin);
+              outputDew = percent * (xMax - xMin) + xMin;
+
+
+        var moon = info.moonPhase; //height
+          //generate ratio 
+            xMax = 170;
+            xMin = 0;
+
+            yMax = 1;
+            yMin = 0;
+
+            percent = (moon - yMin) / (yMax - yMin);
+            outputMoon = percent * (xMax - xMin) + xMin;
+
+        var tempMax = info.temperatureMax;
+
+
+              $('body').append(`
+                <div style = 
+                "width: ${outputMin}px; 
+                height: ${outputMoon}px; 
+                left: ${randomX}px; 
+                top: ${randomY}px; 
+                position: absolute;
+                border-radius: ${tempMax}px;
+                background: linear-gradient(${tempMax}deg, 
+                rgb(${outputCloud},${outputPrecip},${outputHigh}), 
+                rgb(${outputPressure},${outputCloud},${outputLow}));"> 
+
+                </div> 
+                `)
+
+            }
+
+   
+  }
+
+  function getRandomPosition(element) {
+
+    console.log(randomX + ", " + randomY);
+  }
+
+
 }
-function violet(){
-  document.body.style.backgroundColor = "#A54FCA";
-}
+
+// today's weather 
+
+// function today(){
+
+	var url;
+
+		for(var i = 0; i < coordinates.length; i++){
+	  var cord = coordinates[i];
+	  
+	  var url = "https://cors.io/?https://api.darksky.net/forecast/5822de9b5bcc53af57fac442945085b7/" + cord ;
+
+	  callAPI();
+
+	}
+
+
+	function callAPI(){
+	  console.log("call api")
+	  fetch(url)
+	    .then(function(event){ return event.json(); })
+	    .then(function(json){ pushData(json);})
+	}
+
+
+	var randomX;
+	var randomY;
+
+
+	function pushData(json){
+	    data.push(json);
+	    console.log(json);
+
+	      buildApp(json);
+
+	}
+
+	function buildApp(json){
+	  // variables from the api
+	  var info = json.daily.data[1];
+
+	    // random append
+	      for (var i = 0; i < 7; i++){
+
+	        var x = window.innerWidth;
+	        var y = window.innerHeight;
+	        randomX = Math.floor(Math.random()*x);
+	        randomY = Math.floor(Math.random()*y);
+
+	// HEIGHT 
+	        //generate ratio 
+	          var uv = info.uvIndex;
+
+	          xMax = 170;
+	          xMin = 0;
+
+	          yMax = 11;
+	          yMin = 0;
+
+	          percent = (uv - yMin) / (yMax - yMin);
+	          outputUV = percent * (xMax - xMin) + xMin;
+
+	      //BORDER RADIUS
+	 
+	      var appHigh = info.apparentTemperatureHigh;
+	      
+	      //LINEAR GRADIENT DEGREES
+	      var appLow = info.apparentTemperatureLow;
+	      
+	      //WIDTH
+	        var tempMin = info.temperatureMin; 
+	            xMax = 280;
+	            xMin = 0;
+
+	            yMax = 100;
+	            yMin = 0;
+
+	            percent = (tempMin - yMin) / (yMax - yMin);
+	            outputMin = percent * (xMax - xMin) + xMin;
+
+
+	    //////////COLOURS
+	       //color1 rgb - r
+	        var pressure = info.pressure;
+	          //generate ratio 
+	          xMax = 255;
+	          xMin = 0;
+
+	          yMax = 1020;
+	          yMin = 1000;
+
+	          percent = (pressure - yMin) / (yMax - yMin);
+	          outputPressure = percent * (xMax - xMin) + xMin;
+
+
+	      var high = info.temperatureHigh; //color1 rgb - b
+	      //generate ratio 
+	          xMax = 255;
+	          xMin = 0;
+
+	          yMax = 100;
+	          yMin = 0;
+
+	          percent = (high - yMin) / (yMax - yMin);
+	          outputHigh = percent * (xMax - xMin) + xMin;
+
+	      var windGust = info.windGust;
+	        //generate ratio 
+	          xMax = 255;
+	          xMin = 0;
+
+	          yMax = 25;
+	          yMin = 0;
+
+	          percent = (windGust - yMin) / (yMax - yMin);
+	          outputGust = percent * (xMax - xMin) + xMin;
+
+	    //////////col2 rgb
+	      var precip = info.precipProbability
+	        xMax = 255;
+	        xMin = 0;
+
+	        yMax = 1;
+	        yMin = 0;
+
+	        percent = (precip - yMin) / (yMax - yMin);
+	        outputPrecip = percent * (xMax - xMin) + xMin;
+
+
+	       //color2 - rgb - g
+	       var cloud = info.cloudCover;
+	      //generate ratio 
+	          xMax = 255;
+	          xMin = 0;
+
+	          yMax = 1;
+	          yMin = 0;
+
+	          percent = (cloud - yMin) / (yMax - yMin);
+	          outputCloud = percent * (xMax - xMin) + xMin;
+
+	      var low = info.temperatureLow; //color2 rgb - b
+	      //generate ratio 
+	          xMax = 255;
+	          xMin = 0;
+
+	          yMax = 100;
+	          yMin = 0;
+
+	          percent = (low - yMin) / (yMax - yMin);
+	          outputLow = percent * (xMax - xMin) + xMin;
+
+
+	    // extra variables 
+	          var dew = info.dewPoint; //y2 
+	        //generate ratio 
+	            xMax = 100;
+	            xMin = 0;
+
+	            yMax = 80;
+	            yMin = 0;
+
+	            percent = (dew - yMin) / (yMax - yMin);
+	            outputDew = percent * (xMax - xMin) + xMin;
+
+
+	      var moon = info.moonPhase; //cx
+	        //generate ratio 
+	          xMax = 150;
+	          xMin = 0;
+
+	          yMax = 1;
+	          yMin = 0;
+
+	          percent = (moon - yMin) / (yMax - yMin);
+	          outputMoon = percent * (xMax - xMin) + xMin;
+
+	      var tempMax = info.temperatureMax;
+
+
+
+	            $('body').append(`
+	              <div style = 
+	              "width: ${outputMin}px; 
+	              height: ${outputUV}px; 
+	              left: ${randomX}px; 
+	              top: ${randomY}px; 
+	              position: absolute;
+	              border-radius: ${appHigh}px;
+	              background: linear-gradient(${appLow}deg, 
+	              rgb(${outputCloud},${outputPrecip},${outputHigh}), 
+	              rgb(${outputPressure},${outputCloud},${outputLow}));"> 
+
+	              </div> 
+	              `)
+
+	          } 
+	}
+
+
+	function getRandomPosition(element) {
+
+	  console.log(randomX + ", " + randomY);
+		}
+	// }
 

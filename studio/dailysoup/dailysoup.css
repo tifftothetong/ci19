@@ -1,6 +1,6 @@
 html{
-  width:0px;
-  height:0px;
+  width:010vw;
+  height:100vh;
 
 }
 
@@ -8,4 +8,22 @@ body{
   width:100vw;
   height:100vh;
 /*  background-color: blue;*/
+}
+
+#buttons{
+  width: 30%;
+  height: 30%;
+  margin: 0 auto;
+  position:absolute;
+  z-index: 2;
+
+
+}
+
+#weather{
+  width:  90%;
+  height: 90%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
