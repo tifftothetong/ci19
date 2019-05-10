@@ -1,148 +1,150 @@
 <!DOCTYPE html>
+<head>
+  <link rel="shortcut icon" 
+  type="image/png"
+  href="https://github.com/tifftothetong/ci19/blob/master/studio/favicons/HOW.png"/>
 <title>how to: netflix</title>
 
+</head>
+
 <style>  
-/*mobile layout*/
+  /*mobile layout*/
 
-body{{
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 130px 100px 100px 100px 100px 100px;}
-
-  p{
-  font-family: Helvetica, sans-serif;
-  font-size: 10pt;
-  text-align: center;
-  }
-
-  i{
-    color: black;
-  }
-  .img{
-    display: block;
-    margin: auto;
-    max-width: 800px;
-    max-height:300px;
-    }
-}
-
-@media (min-width: 600px){
-  body{
+  body{{
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 700px 500px 500px 500px 500px 500px 500px;
-  }
+    grid-template-rows: 130px 100px 100px 100px 100px 100px;}
 
     p{
-      font-family: Helvetica, sans-serif;
-      font-size: 10pt;
-      text-align: center;
+    font-family: Helvetica, sans-serif;
+    font-size: 10pt;
+    text-align: center;
     }
 
     i{
       color: black;
     }
-
     .img{
       display: block;
       margin: auto;
       max-width: 800px;
       max-height:300px;
+      }
+  }
+
+  @media (min-width: 600px){
+    body{
+      display: grid;
+      grid-template-columns: 100%;
+      grid-template-rows: 700px 500px 500px 500px 500px 500px 500px;
     }
 
-/*    div{
-      width:100px;
-      height:;
-    }*/
+      p{
+        font-family: Helvetica, sans-serif;
+        font-size: 10pt;
+        text-align: center;
+      }
 
-}
+      i{
+        color: black;
+      }
 
-@media (hover) and (min-width: 1000px) {
-  /*desktop layout for large window*/
-  body{
-    grid-template-columns: 430px 430px 430px;
-    grid-template-rows: 460px 550px;
+      .img{
+        display: block;
+        margin: auto;
+        max-width: 800px;
+        max-height:300px;
+      }
+
+
   }
+
+  @media (hover) and (min-width: 1000px) {
+    /*desktop layout for large window*/
+    body{
+      grid-template-columns: 430px 430px 430px;
+      grid-template-rows: 460px 550px;
+    }
+
+      h1{
+        font-family: Helvetica, sans-serif;
+        color: red;
+        font-size: 35pt;
+      }
+
+      p{
+        font-family: Helvetica, sans-serif;
+        font-size: 20pt;
+      /*  height:50px;*/
+      }
+
+      .title{
+        grid-column-start: 1;
+        grid-column-end: 4;
+      }
+
+  }
+
+    .title{
+      border-bottom-color: red;
+      border-style: dashed;
+      border-bottom-width: 10px;
+      border-right-width: 0px;
+      border-left-width: 0px;
+      border-top-width: 0px;
+    }
 
     h1{
       font-family: Helvetica, sans-serif;
-      color: red;
-      font-size: 35pt;
+      color: black;
+      font-size: 90pt;
+      font-style: italic;
+      margin:0px;
     }
 
-    p{
+    h2{
       font-family: Helvetica, sans-serif;
+      color: red;
+      font-size: 30pt;
+      margin:0px;
+      padding-left:60%;
+    }
+
+    h3{
+      font-family: Helvetica, sans-serif;
+      color: black;
+      font-size: 50pt;
+      font-style: italic;
+      margin:0px;
+      padding-left: 75%;
+    }
+
+    h4{
+      font-family: Helvetica, sans-serif;
+      color: red;
+      font-size: 30pt;
+      margin:0px;
+      padding-left: 80%
+    }
+
+    h5{
+      font-family: Helvetica, sans-serif;
+      color: red;
       font-size: 20pt;
-    /*  height:50px;*/
+      margin:0px;
+      padding-left: 85%
     }
 
-    .title{
-      grid-column-start: 1;
-      grid-column-end: 4;
+    h6{
+      font-family: Helvetica, sans-serif;
+      color: black;
+      font-size: 20pt;
+      font-style: italic;
+      margin:0px;
+      padding-left:87%;
     }
 
-}
-
-  .title{
-    border-bottom-color: red;
-    border-style: dashed;
-    border-bottom-width: 10px;
-    border-right-width: 0px;
-    border-left-width: 0px;
-    border-top-width: 0px;
-  }
-
-  h1{
-    font-family: Helvetica, sans-serif;
-    color: black;
-    font-size: 90pt;
-    font-style: italic;
-    margin:0px;
-  }
-
-  h2{
-    font-family: Helvetica, sans-serif;
-    color: red;
-    font-size: 30pt;
-    margin:0px;
-    padding-left:60%;
-  }
-
-  h3{
-    font-family: Helvetica, sans-serif;
-    color: black;
-    font-size: 50pt;
-    font-style: italic;
-    margin:0px;
-    padding-left: 75%;
-  }
-
-  h4{
-    font-family: Helvetica, sans-serif;
-    color: red;
-    font-size: 30pt;
-    margin:0px;
-    padding-left: 80%
-  }
-
-  h5{
-    font-family: Helvetica, sans-serif;
-    color: red;
-    font-size: 20pt;
-    margin:0px;
-    padding-left: 85%
-  }
-
-  h6{
-    font-family: Helvetica, sans-serif;
-    color: black;
-    font-size: 20pt;
-    font-style: italic;
-    margin:0px;
-    padding-left:87%;
-  }
-
-</style>
+  </style>
 
 <body>
 
