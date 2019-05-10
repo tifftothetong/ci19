@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+
+  <div id = "container"></div>
+<body>
+
+  <script>
+    
+    var url = "https://api.citybik.es/v2/networks/citi-bike-nyc";
+    var lat = 40.7353
+    var lon = -73.9944
+    var saved = [];
+
+    function callAPI(){
+      console.log("call api")
+          // calls the api
+    fetch(url)
+      .then(function(event){ return event.json(); })
+      .then(function(json){ buildApp(json);})
+    }
+
+    function distance(lat1,lon1,lat2,lon2){
+      return Math.sqrt(Math.pow(lat1-lat2, 2) + Math.pow(lon1-lon2,2));
+    }
+
+    function buildApp(json){
+      let stations = json.network.stations; 
+      stations.sort(function(a,b){ 
+        return distance(a.latitude, a.longitude, lat, lon) - 
+        distance(b.latitude, b.longitude, lat, lon); 
+      });
+      console.log(stations);
+      let nearest = stations.slice(0,20);
+      console.log(nearest);
+
+      document.querySelector("#container").remove();
+
+      let container = document.createElement("div");
+      container.setAttribute("id", "container");
+      document.body.appendChild(container);
+
+      for(let i = 0; i < nearest.length; i = i+1){
+        if (saved[i] == undefined){
+          // saved[i] = nearest[i].free_bikes;
+          saved[i] = [];
+
+        }
+        saved[i][i] = nearest[i].free_bikes;
+      }
+
+      for(let i = 0; i < nearest.length; i = i+1){
+        var diff = nearest[i].free_bikes - saved[i][0];
+        var diffString = diff > 0 ? "+"+diff : diff;
+        var color = diff > 0 ? "#0D0" : "#F00";
+        diffString = "<span style='color:"+color+"'>" + diffString + "</span>";
+        var change = (diff == 0) ? ("") : (" "+diffString);
+
+        let h1 = document.createElement("h1");
+        h1.innerHTML = nearest[i].name; 
+        let h2 = document.createElement("h2");
+        h2.innerHTML = nearest[i].free_bikes + change;
+        container.appendChild(h1);
+        container.appendChild(h2);
+
+      }
+    }
+
+    // run the app 
+
+
+    callAPI();
+    setInterval(callAPI, 60000);
+
+  </script>
+
+</body>
+</html>

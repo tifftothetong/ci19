@@ -1,11 +1,84 @@
 html{
-  width:0px;
-  height:0px;
+  width:100vw;
+  height:100vh;
 
 }
 
 body{
   width:100vw;
   height:100vh;
+  position:relative;
+  z-index: 1;
 /*  background-color: blue;*/
 }
+
+#buttons{
+  width: 30%;
+  height: 30%;
+  margin: 0 auto;
+  position:absolute;
+  z-index: 2;
+  padding:20px;
+}
+
+html, body {
+  margin: 0; height: 100%; overflow: hidden
+}
+
+
+.top{
+  width:100vw;
+  height: 50vh;
+}
+
+.down{
+  width:100vw;
+  height: 50vh;
+}
+
+/*.red{
+  width:33.3vw;
+  height: 50vh;
+  display:inline-block;
+  margin:0;
+  float: left;
+}
+
+.orange{
+  width:33.3vw;
+  height: 50vh;
+  display:inline-block;
+  margin:0;
+  float: left;
+}
+
+.yellow{
+  width:33.3vw;
+  height: 50vh;
+  display:inline-block;
+  margin:0;
+}
+
+.green{
+  width:33.3vw;
+  height: 50vh;
+  display:inline-block;
+  margin:0;
+  float:left;
+}
+
+.blue{
+  width:33.3vw;
+  height: 50vh;
+  display:inline-block;
+  margin:0;
+  float: left;
+}
+
+.violet{
+  width:33.3vw;
+  height: 50vh;
+  display:inline-block;
+  margin:0;
+}*/
+

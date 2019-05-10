@@ -2,7 +2,7 @@ div{
   font-family: "Helvetica", "Arial", sans-serif;
   font-style: oblique;
   font-weight: bold;
-  font-size:120px;
+  font-size:150px;
   color: black;
   -webkit-text-fill-color: yellow; 
   -webkit-text-stroke-width: 1px;
@@ -12,6 +12,7 @@ div{
 /*  z-index:2;*/
 }
 
+html, body {margin: 0; height: 100%; overflow: hidden}
 
 
 /*@keyframes fade {
